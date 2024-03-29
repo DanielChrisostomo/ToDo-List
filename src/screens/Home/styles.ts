@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   title: {
     backgroundColor: "#000",
     width: "100%",
-    height: 230,
+    height: 210,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     paddingRight: 30,
     width: "100%",
     position: "absolute",
-    bottom: -27.5,
+    bottom: -28,
     height: 60,
   },
   input: {
@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 5,
     fontSize: 16,
+    color: "white",
   },
   btn: {
     justifyContent: "center",
@@ -52,6 +53,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: "#808080",
     borderBottomWidth: 1,
     paddingBottom: 20,
+    marginBottom: 50,
   },
   createdText: {
     color: "#4EA8DE",
@@ -67,5 +69,22 @@ export const styles = StyleSheet.create({
     paddingRight: 8,
     borderRadius: 50,
     backgroundColor: "#808080",
+  },
+  tasksList: {},
+  emptyListContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+  },
+  emptyListBoldText: {
+    color: "#808080",
+    fontWeight: "bold",
+    fontSize: 16,
+    marginTop: 24,
+    marginBottom: 2,
+  },
+  emptyListRegularText: {
+    color: "#808080",
+    fontSize: 16,
   },
 });
