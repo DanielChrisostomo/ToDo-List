@@ -4,26 +4,34 @@ import Checkbox from "expo-checkbox";
 import { styles } from "./styles";
 import Trash from "../../../assets/trash.svg";
 
-type Props = {
-  taskText: string;
+type TaskProps = {
+  task: {
+    id: number;
+    taskText: string;
+    checked: boolean;
+  };
   onRemove: () => void;
+  onToggle: (checked: boolean) => void;
 };
 
-const Task = ({ taskText, onRemove }: Props) => {
-  const [isChecked, setIsChecked] = React.useState(false);
-
+const Task = ({ task, onRemove, onToggle }: TaskProps) => {
   return (
-    <View style={styles.container}>
-      <Checkbox
-        style={styles.checkbox}
-        value={isChecked}
-        onValueChange={setIsChecked}
-      />
-      <Text style={styles.paragraph}>{taskText}</Text>
-      <TouchableOpacity onPress={onRemove}>
-        <Trash width={18} height={18} />
-      </TouchableOpacity>
-    </View>
+    <>
+      <View style={styles.container}>
+        <Checkbox
+          style={styles.checkbox}
+          value={task.checked}
+          onValueChange={onToggle}
+          color={task.checked ? "#5E60CE" : "#4EA8DE"}
+        />
+        <Text style={task.checked ? styles.paragraphChecked : styles.paragraph}>
+          {task.taskText}
+        </Text>
+        <TouchableOpacity onPress={onRemove} style={styles.btnRemove}>
+          <Trash width={16} height={16} />
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 

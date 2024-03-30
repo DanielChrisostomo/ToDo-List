@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     height: "100%",
   },
   title: {
-    backgroundColor: "#000",
+    backgroundColor: "#0D0D0D",
     width: "100%",
     height: 210,
     justifyContent: "center",
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#262626",
-    padding: 10,
+    padding: 20,
     flex: 1,
     borderRadius: 5,
     fontSize: 16,
@@ -50,10 +50,7 @@ export const styles = StyleSheet.create({
   createdAndConcluded: {
     justifyContent: "space-between",
     flexDirection: "row",
-    borderBottomColor: "#808080",
-    borderBottomWidth: 1,
-    paddingBottom: 20,
-    marginBottom: 50,
+    paddingBottom: 24,
   },
   createdText: {
     color: "#4EA8DE",
@@ -68,13 +65,14 @@ export const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
     borderRadius: 50,
-    backgroundColor: "#808080",
+    backgroundColor: "#505050",
   },
-  tasksList: {},
   emptyListContainer: {
+    paddingTop: 50,
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    borderTopColor: "#808080",
+    borderTopWidth: 1,
   },
   emptyListBoldText: {
     color: "#808080",

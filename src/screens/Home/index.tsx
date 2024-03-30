@@ -13,11 +13,16 @@ import Plus from "../../../assets/plus.svg";
 import Clipboard from "../../../assets/clipboard.svg";
 import Task from "../../components/Task";
 
+type Tasks = {
+  id: number;
+  taskText: string;
+  checked: boolean;
+};
+
 const Home = () => {
   const [inputText, setinputText] = React.useState("");
-  const [itensLista, setItensLista] = React.useState<string[]>([]);
-
-  console.log(itensLista);
+  const [itensLista, setItensLista] = React.useState<Tasks[]>([]);
+  const [numConcluidas, setNumConcluidas] = React.useState(0);
 
   function handleTaskAdd() {
     if (inputText === "")
@@ -29,7 +34,14 @@ const Home = () => {
     Alert.alert("Nova tarefa", "Deseja adicionar uma nova tarefa ?", [
       {
         text: "Sim",
-        onPress: () => setItensLista([...itensLista, inputText]),
+        onPress: () => {
+          const newTask: Tasks = {
+            id: itensLista.length,
+            taskText: inputText,
+            checked: false,
+          };
+          setItensLista([...itensLista, newTask]);
+        },
       },
       {
         text: "Não",
@@ -44,7 +56,7 @@ const Home = () => {
       {
         text: "sim",
         onPress: () =>
-          setItensLista(itensLista.filter((item) => item !== task)),
+          setItensLista(itensLista.filter((item) => item.taskText !== task)),
       },
       {
         text: "não",
@@ -52,6 +64,27 @@ const Home = () => {
       },
     ]);
   }
+
+  function handleTaskToggle(id: number, checked: boolean) {
+    setItensLista(
+      itensLista.map((task) => {
+        if (task.id === id) {
+          return { ...task, checked };
+        }
+        return task;
+      }),
+    );
+  }
+
+  React.useEffect(() => {
+    function handleConcludedTasks() {
+      let numConcluidasAtualizado = itensLista.filter(
+        (task) => task.checked === true,
+      ).length;
+      setNumConcluidas(numConcluidasAtualizado);
+    }
+    handleConcludedTasks();
+  }, [itensLista]);
 
   return (
     <View style={styles.container}>
@@ -75,21 +108,24 @@ const Home = () => {
         <View style={styles.createdAndConcluded}>
           <View style={styles.row}>
             <Text style={styles.createdText}>Criadas</Text>
-            <Text style={styles.num}>0</Text>
+            <Text style={styles.num}>{itensLista.length}</Text>
           </View>
 
           <View style={styles.row}>
             <Text style={styles.concludedText}>Concluidas</Text>
-            <Text style={styles.num}>0</Text>
+            <Text style={styles.num}>{numConcluidas}</Text>
           </View>
         </View>
 
         <FlatList
-          style={styles.tasksList}
           data={itensLista}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <Task taskText={item} onRemove={() => handleRemoveTask(item)} />
+            <Task
+              task={item}
+              onRemove={() => handleRemoveTask(item.taskText)}
+              onToggle={(checked) => handleTaskToggle(item.id, checked)}
+            />
           )}
           ListEmptyComponent={() => (
             <View style={styles.emptyListContainer}>
